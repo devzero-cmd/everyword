@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/style.css">
+
+    <!-- Font Awesome -->
+
+    <script src="https://kit.fontawesome.com/66c60e53af.js" crossorigin="anonymous"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/room.js"></script>
+
+    <title>Word Bolt</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-sm primary-mid d-flex justify-content-center align-items-center">
+  <img src="/images/logo1.png" alt="Logo 1" style="height: 40px; margin-right: 10px;">
+  <span style="font-weight: bold; font-size: 1.2rem; color: white;">ISABELA STATE UNIVERSITY</span>
+  <img src="/images/logo2.png" alt="Logo 2" style="height: 40px; margin-left: 10px;">
+</nav>
+
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-xl-8 mt-5" id="welcome">
+                <div class="card mx-auto light-grey-border shadow">
+                    <div class="card-body grey-ultralight">
+                        <h5 class="text-center">Welcome to EVERYWORDS!</h5>
+                        <p>Invite your friends by sending them the link in the address bar. Press 'Start Round' when you are ready to play!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 in-game mt-5">
+                <div id="constrain-to-board" class="ml-auto mr-4">
+                    <div id="board" class="primary-mid-light mid-grey-border shadow">
+                    </div>
+                    <div class="m-1 text-center" id="error-container">
+                    </div>
+                    <div class="input-group mb-3" id="word-submission-container">
+                        <input type="text" class="form-control light-grey-border shadow grey-ultralight" placeholder="WORD"
+                            aria-label="Recipient's username" aria-describedby="button-addon2" id="word" maxlength="16"
+                            oninput="this.value = this.value.toUpperCase()" autocomplete="off">
+                        <div class="input-group-append">
+                            <button class="button primary-mid shadow" type="button" id="submit-word"
+                                style="border-bottom-left-radius: 0rem; border-top-left-radius: 0rem;">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6 col-xl-4 in-game mt-5">
+                <div class="card light-grey-border shadow mr-auto ml-4" id="found-words-container">
+                    <div class="card-header text-center grey-ultralight header-light-grey-border">
+                        <div id="timer" style="display: inline-block;"></div>
+                        <div class="float-right">
+                            <button class="button primary-mid" id="pause"><i class="fas fa-pause shrink-icon"></i></button>
+                            <button class="button primary-mid" id="resume" style="display: none;"><i class="fas fa-play shrink-icon"></i></button>
+                            <button class="button primary-mid" id="end-round">End</button>
+                        </div>
+                    </div>
+                    <div class="card-body overflow-auto grey-ultralight p-3" style="height: 262px">
+                        <ol class="m-0" id="found-words">
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-8 mt-5" id="post-game-container">
+            </div>
+            
+            <div class="col-12 col-xl-4 mt-5">
+                <div class="card mx-auto light-grey-border shadow" id="scorecard">
+                    <div class="card-body grey-ultralight">
+                        <div style="display: flex; justify-content: space-between;">
+                            <button type="button" class="button primary-mid mx-3" id="start-round" style="display: inline-block;">Start
+                                Round</button>
+                            <button type="button" class="button  primary-mid mx-3" id="reset-score" style="display: inline-block;">Reset
+                                Score</button>
+                        </div>
+                        <div class="input-group mb-4 mt-3 mod-ig">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text grey-light light-grey-border" id="basic-addon1"><i class="fas fa-user primary-mid-color"></i></span>
+                            </div>
+                            <input type="text" class="form-control light-grey-border" placeholder="Username" aria-label="Username"
+                                aria-describedby="basic-addon1" id="username" maxlength="16">
+                        </div>
+                        <div id="singleplayer-score-card" style="margin: 0 auto; width: 200px;">
+                            <div class="info-row"><span class="float-left">High Score</span><span class="float-right">0</span></div>
+                        </div>
+                        <div id="multiplayer-score-card" style="display: none">
+                            <table id="users" style="width: 100%">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 75px">Wins</th>
+                                        <th>Name</th>
+                                        <th style="width: 55px">Best</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-check text-center mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="sortResultsToggle">
+                            <label class="form-check-label" for="sortResultsToggle">
+                                Sort Results
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

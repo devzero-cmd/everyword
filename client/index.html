@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/66c60e53af.js" crossorigin="anonymous"></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/index.js"></script>
+
+    <title>Word Bolt</title>
+
+    <style>
+        /* Flipping background container */
+        body {
+            position: relative;
+            overflow-x: hidden;
+            background-color: #f8f9fa; /* fallback background */
+        }
+
+        /* The flipping logo background */
+        .flipping-logo-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 300px; /* adjust size */
+            height: 300px;
+            margin-top: -150px; /* half height */
+            margin-left: -150px; /* half width */
+            background: url('/images/logo.png') no-repeat center center / contain;
+            animation: flip 4s linear infinite;
+            opacity: 0.1; /* subtle, so content is readable */
+            pointer-events: none; /* so clicks pass through */
+            z-index: -1;
+        }
+
+        @keyframes flip {
+            0% {
+                transform: rotateY(0deg);
+            }
+
+            50% {
+                transform: rotateY(180deg);
+            }
+
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Flipping logo background -->
+    <div class="flipping-logo-bg"></div>
+
+    <nav class="navbar navbar-expand-sm primary-mid">
+        <a class="navbar-brand" href="#" style="font-weight: bold;">
+           EVERYWORDS
+           <i class="fas fa-bolt"></i>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link" href="#" onclick="randRoomRedirect()">Game</a>
+          </div>
+        </div>
+    </nav>
+    <div class="container" style="height: 50vh;">
+        <div class="row h-100">
+            <div class="col-12 my-auto d-flex justify-content-center">
+                <button id="new-room" class="primary-mid button" href="#" onclick="randRoomRedirect()">
+                    Play
+                    <i class="fas fa-bolt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
